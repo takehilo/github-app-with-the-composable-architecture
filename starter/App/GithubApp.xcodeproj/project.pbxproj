@@ -10,7 +10,7 @@
 		62753F712AA8E671008CBC3D /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62753F702AA8E671008CBC3D /* App.swift */; };
 		62753F752AA8E672008CBC3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62753F742AA8E672008CBC3D /* Assets.xcassets */; };
 		62753F792AA8E672008CBC3D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62753F782AA8E672008CBC3D /* Preview Assets.xcassets */; };
-		62D895CD2AA8E8E500A7A2D6 /* SearchReposFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 62D895CC2AA8E8E500A7A2D6 /* SearchReposFeature */; };
+		627F6F202AA8ED08008BAA92 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 627F6F1F2AA8ED08008BAA92 /* AppFeature */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62D895CD2AA8E8E500A7A2D6 /* SearchReposFeature in Frameworks */,
+				627F6F202AA8ED08008BAA92 /* AppFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,7 +95,7 @@
 			);
 			name = GithubApp;
 			packageProductDependencies = (
-				62D895CC2AA8E8E500A7A2D6 /* SearchReposFeature */,
+				627F6F1F2AA8ED08008BAA92 /* AppFeature */,
 			);
 			productName = GithubApp;
 			productReference = 62753F6D2AA8E671008CBC3D /* GithubApp.app */;
@@ -367,9 +367,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		62D895CC2AA8E8E500A7A2D6 /* SearchReposFeature */ = {
+		627F6F1F2AA8ED08008BAA92 /* AppFeature */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = SearchReposFeature;
+			productName = AppFeature;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

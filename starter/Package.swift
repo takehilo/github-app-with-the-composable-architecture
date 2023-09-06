@@ -8,11 +8,11 @@ let package = Package(
     platforms: [.iOS(.v16)],
     products: [
         .library(
-            name: "SearchReposFeature",
-            targets: ["SearchReposFeature"]),
+            name: "AppFeature",
+            targets: ["AppFeature"]),
     ],
     targets: [
         .target(
-            name: "SearchReposFeature")
+            name: "AppFeature")
     ]
 )

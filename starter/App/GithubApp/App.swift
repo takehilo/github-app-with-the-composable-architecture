@@ -1,5 +1,5 @@
 import SwiftUI
-import SearchReposFeature
+import AppFeature
 
 @main
 struct GithubApp: App {
