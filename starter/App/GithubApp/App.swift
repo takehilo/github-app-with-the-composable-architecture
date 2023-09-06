@@ -2,7 +2,7 @@ import SwiftUI
 import SearchReposFeature
 
 @main
-struct GithubAppApp: App {
+struct GithubApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
