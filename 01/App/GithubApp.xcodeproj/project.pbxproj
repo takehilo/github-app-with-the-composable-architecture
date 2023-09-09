@@ -13,7 +13,7 @@
 		627E45842AAC393600BA0EF9 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 627E45832AAC393600BA0EF9 /* Domain */; };
 		627E45862AAC393600BA0EF9 /* GithubClient in Frameworks */ = {isa = PBXBuildFile; productRef = 627E45852AAC393600BA0EF9 /* GithubClient */; };
 		627E45882AAC393600BA0EF9 /* GithubClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 627E45872AAC393600BA0EF9 /* GithubClientLive */; };
-		627F6F202AA8ED08008BAA92 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 627F6F1F2AA8ED08008BAA92 /* AppFeature */; };
+		62D468902AAC3D3800165AA7 /* SearchRepositoriesFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 62D4688F2AAC3D3800165AA7 /* SearchRepositoriesFeature */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,7 @@
 				627E45842AAC393600BA0EF9 /* Domain in Frameworks */,
 				627E45862AAC393600BA0EF9 /* GithubClient in Frameworks */,
 				627E45882AAC393600BA0EF9 /* GithubClientLive in Frameworks */,
-				627F6F202AA8ED08008BAA92 /* AppFeature in Frameworks */,
+				62D468902AAC3D3800165AA7 /* SearchRepositoriesFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,10 +101,10 @@
 			);
 			name = GithubApp;
 			packageProductDependencies = (
-				627F6F1F2AA8ED08008BAA92 /* AppFeature */,
 				627E45832AAC393600BA0EF9 /* Domain */,
 				627E45852AAC393600BA0EF9 /* GithubClient */,
 				627E45872AAC393600BA0EF9 /* GithubClientLive */,
+				62D4688F2AAC3D3800165AA7 /* SearchRepositoriesFeature */,
 			);
 			productName = GithubApp;
 			productReference = 62753F6D2AA8E671008CBC3D /* GithubApp.app */;
@@ -390,9 +390,9 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = GithubClientLive;
 		};
-		627F6F1F2AA8ED08008BAA92 /* AppFeature */ = {
+		62D4688F2AAC3D3800165AA7 /* SearchRepositoriesFeature */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = AppFeature;
+			productName = SearchRepositoriesFeature;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

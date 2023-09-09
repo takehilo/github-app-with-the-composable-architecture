@@ -8,7 +8,7 @@ let package = Package(
     platforms: [.iOS(.v16)],
     products: [
         .library(name: "Domain", targets: ["Domain"]),
-        .library(name: "AppFeature", targets: ["AppFeature"]),
+        .library(name: "SearchRepositoriesFeature", targets: ["SearchRepositoriesFeature"]),
         .library(name: "GithubClient", targets: ["GithubClient"]),
         .library(name: "GithubClientLive", targets: ["GithubClientLive"])
     ],
@@ -29,10 +29,11 @@ let package = Package(
             ]
         ),
         .target(
-            name: "AppFeature",
+            name: "SearchRepositoriesFeature",
             dependencies: [
                 "Domain",
-                "GithubClient"
+                "GithubClient",
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ],
             swiftSettings: [
                 .unsafeFlags([

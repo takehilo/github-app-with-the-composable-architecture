@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SearchReposResponse: Decodable, Equatable {
+public struct SearchReposResponse: Sendable, Decodable, Equatable {
     public let totalCount: Int
     public let incompleteResults: Bool
     public let items: [Item]
@@ -21,7 +21,7 @@ public struct SearchReposResponse: Decodable, Equatable {
         case items
     }
 
-    public struct Item: Decodable, Equatable {
+    public struct Item: Sendable, Decodable, Equatable {
         public let id: Int
         public let name: String
         public let fullName: String
@@ -55,7 +55,7 @@ public struct SearchReposResponse: Decodable, Equatable {
         }
     }
 
-    public struct Owner: Decodable, Equatable {
+    public struct Owner: Sendable, Decodable, Equatable {
         public let login: String
         public let avatarUrl: URL
 

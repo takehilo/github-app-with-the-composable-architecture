@@ -1,8 +1,8 @@
 import Foundation
-import APIKit
+@preconcurrency import APIKit
 import Domain
 
-public final class ApiClient {
+struct ApiClient: Sendable {
     private let session: Session
 
     init(session: Session) {
@@ -31,7 +31,7 @@ final class NoopSessionTask: SessionTask {
     func cancel() {}
 }
 
-final class NoopSessionAdapter: SessionAdapter {
+struct NoopSessionAdapter: SessionAdapter {
     func createTask(
         with URLRequest: URLRequest,
         handler: @escaping (Data?, URLResponse?, Error?) -> Void
