@@ -45,23 +45,10 @@ struct RepositoryItemView: View {
 struct RepositoryItemView_Previews: PreviewProvider {
     static var previews: some View {
         RepositoryItemView(
-            store: .init(initialState: RepositoryItemReducer.State(item: .mock)) {
+            store: .init(initialState: RepositoryItemReducer.State(item: .mock(name: "Alice"))) {
                 RepositoryItemReducer()
             }
         )
     }
-}
-
-private extension SearchReposResponse.Item {
-    static let mock: Self = .init(
-        id: 1,
-        name: "takehilo",
-        fullName: "takehilo/github-app-with-the-composable-architecture",
-        owner: .init(
-            login: "takehilo",
-            avatarUrl: URL(string: "https://github.com/takehilo.png")!
-        ),
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-        stargazersCount: 1234)
 }
 #endif

@@ -2,6 +2,7 @@ import ComposableArchitecture
 import Dependencies
 import GithubClient
 import Domain
+import Foundation
 
 public struct SearchRepositoriesReducer: Reducer, Sendable {
     // MARK: - State
@@ -18,7 +19,7 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
     // MARK: - Action
     public enum Action: BindableAction, Equatable, Sendable {
         case binding(BindingAction<State>)
-        case item(id: Int, action: RepositoryItemReducer.Action)
+        case item(id: UUID, action: RepositoryItemReducer.Action)
         case onAppear
         case searchReposResponse(TaskResult<SearchReposResponse>)
     }

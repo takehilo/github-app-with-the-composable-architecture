@@ -1,11 +1,12 @@
 import ComposableArchitecture
 import Dependencies
 import Domain
+import Foundation
 
 public struct RepositoryItemReducer: Reducer, Sendable {
     // MARK: - State
     public struct State: Equatable, Identifiable {
-        public let id: Int
+        public let id: UUID
         let name: String
         let description: String?
         let owner: String
@@ -47,7 +48,8 @@ public struct RepositoryItemReducer: Reducer, Sendable {
 
 extension RepositoryItemReducer.State {
     init(item: SearchReposResponse.Item) {
-        self.id = item.id
+        @Dependency(\.uuid) var uuid
+        self.id = uuid()
         self.name = item.fullName
         self.description = item.description
         self.owner = item.owner.login
@@ -56,7 +58,7 @@ extension RepositoryItemReducer.State {
 }
 
 extension IdentifiedArrayOf
-where Element == RepositoryItemReducer.State, ID == Int {
+where Element == RepositoryItemReducer.State, ID == UUID {
     init(response: SearchReposResponse) {
         self = IdentifiedArrayOf(uniqueElements: response.items.map { .init(item: $0) })
     }
