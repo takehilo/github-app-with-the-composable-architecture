@@ -11,7 +11,7 @@ extension GithubRequest {
 
     var baseHeaders: [String: String] {
         var params: [String: String] = [:]
-        params["Accept"] = "application/vnd.github.v3+json"
+        params["Accept"] = "application/vnd.github+json"
         return params
     }
 }
