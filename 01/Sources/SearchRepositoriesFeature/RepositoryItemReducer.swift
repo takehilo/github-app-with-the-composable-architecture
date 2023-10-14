@@ -9,40 +9,17 @@ public struct RepositoryItemReducer: Reducer, Sendable {
         public let id: UUID
         let name: String
         let description: String?
-        let owner: String
         let stars: Int
-        var alert: AlertState<Action>?
     }
 
     // MARK: - Action
     public enum Action: Equatable, Sendable {
-        case onAppear
-        case nameTapped
-        case starTapped
-        case alertDismissed
     }
 
     // MARK: - Dependencies
 
     // MARK: - Reducer
     public func reduce(into state: inout State, action: Action) -> Effect<Action> {
-        switch action {
-        case .onAppear:
-            return .none
-        case .nameTapped:
-            state.alert = AlertState(
-                title: TextState("Repository name is '\(state.name)'")
-            )
-            return .none
-        case .starTapped:
-            state.alert = AlertState(
-                title: TextState("\(state.stars.description) stars!!")
-            )
-            return .none
-        case .alertDismissed:
-            state.alert = nil
-            return .none
-        }
     }
 }
 
@@ -52,7 +29,6 @@ extension RepositoryItemReducer.State {
         self.id = uuid()
         self.name = item.fullName
         self.description = item.description
-        self.owner = item.owner.login
         self.stars = item.stargazersCount
     }
 }

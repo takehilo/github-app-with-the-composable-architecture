@@ -7,13 +7,11 @@ struct RepositoryItemView: View {
 
     struct ViewState: Equatable {
         let name: String
-        let login: String
         let description: String?
         let stars: Int
 
         init(state: RepositoryItemReducer.State) {
             self.name = state.name
-            self.login = state.owner
             self.description = state.description
             self.stars = state.stars
         }
