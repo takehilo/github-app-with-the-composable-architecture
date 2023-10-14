@@ -10,8 +10,16 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
         var items = IdentifiedArrayOf<RepositoryItemReducer.State>()
         @BindingState var query = ""
         var currentPage = 1
+        var loadingState: LoadingState = .refreshing
+        var hasMorePage = false
 
         public init() {}
+    }
+
+    enum LoadingState: Equatable {
+        case refreshing
+        case loadingNext
+        case none
     }
 
     private enum CancelId { case searchRepos }
@@ -20,7 +28,7 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
     public enum Action: BindableAction, Equatable, Sendable {
         case binding(BindingAction<State>)
         case item(id: UUID, action: RepositoryItemReducer.Action)
-        case onAppear
+        case itemAppeared(id: UUID)
         case searchReposResponse(TaskResult<SearchReposResponse>)
     }
 
@@ -36,11 +44,13 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
         Reduce { state, action in
             switch action {
 
-            case .onAppear:
-                return .none
-
             case .binding(\.$query):
-                guard !state.query.isEmpty else { return .cancel(id: CancelId.searchRepos) }
+                guard !state.query.isEmpty else {
+                    return .cancel(id: CancelId.searchRepos)
+                }
+
+                state.currentPage = 1
+
                 return .run { [query = state.query, page = state.currentPage] send in
                     await send(.searchReposResponse(TaskResult {
                         try await githubClient.searchRepos(.init(query: query, page: page))
@@ -52,11 +62,37 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
                 return .none
 
             case let .searchReposResponse(.success(response)):
-                state.items = .init(response: response)
+                state.hasMorePage = response.totalCount > state.items.count
+
+                switch state.loadingState {
+                case .refreshing:
+                    state.items = .init(response: response)
+                case .loadingNext:
+                    let newItems = IdentifiedArrayOf(response: response)
+                    state.items.append(contentsOf: newItems)
+                case .none:
+                    break
+                }
+
+                state.loadingState = .none
                 return .none
 
             case .searchReposResponse(.failure):
                 return .none
+
+            case let .itemAppeared(id: id):
+                if state.hasMorePage, state.items.index(id: id) == state.items.count - 1 {
+                    state.currentPage += 1
+                    state.loadingState = .loadingNext
+                    
+                    return .run { [query = state.query, page = state.currentPage] send in
+                        await send(.searchReposResponse(TaskResult {
+                            try await githubClient.searchRepos(.init(query: query, page: page))
+                        }))
+                    }
+                } else {
+                    return .none
+                }
 
             case .item:
                 return .none

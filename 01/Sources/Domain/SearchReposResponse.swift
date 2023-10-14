@@ -2,22 +2,18 @@ import Foundation
 
 public struct SearchReposResponse: Sendable, Decodable, Equatable {
     public let totalCount: Int
-    public let incompleteResults: Bool
     public let items: [Item]
 
     public init(
         totalCount: Int,
-        incompleteResults: Bool,
         items: [Item]
     ) {
         self.totalCount = totalCount
-        self.incompleteResults = incompleteResults
         self.items = items
     }
 
     enum CodingKeys: String, CodingKey {
         case totalCount = "total_count"
-        case incompleteResults = "incomplete_results"
         case items
     }
 
