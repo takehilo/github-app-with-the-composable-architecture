@@ -17,8 +17,8 @@ public struct SearchRepositoriesView: View {
     }
 
     public var body: some View {
-        WithViewStore(store, observe: ViewState.init(store:)) { viewStore in
-            NavigationView {
+        NavigationStack {
+            WithViewStore(store, observe: ViewState.init(store:)) { viewStore in
                 List {
                     ForEachStore(store.scope(
                         state: \.items,
@@ -28,9 +28,9 @@ public struct SearchRepositoriesView: View {
                     }
                 }
                 .searchable(text: viewStore.$query)
-            }
-            .onAppear {
-                viewStore.send(.onAppear)
+                .onAppear {
+                    viewStore.send(.onAppear)
+                }
             }
         }
     }
