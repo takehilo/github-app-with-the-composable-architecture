@@ -42,6 +42,10 @@ struct SearchRepositoriesView_Previews: PreviewProvider {
         SearchRepositoriesView(
             store: .init(initialState: SearchRepositoriesReducer.State()) {
                 SearchRepositoriesReducer()
+                    .dependency(
+                        \.githubClient,
+                         .init(searchRepos: { _ in .mock })
+                    )
             }
         )
     }
