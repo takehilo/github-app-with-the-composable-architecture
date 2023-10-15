@@ -18,6 +18,7 @@ public struct SearchReposResponse: Sendable, Decodable, Equatable {
     }
 
     public struct Item: Sendable, Decodable, Equatable {
+        public let id: Int
         public let name: String
         public let fullName: String
         public let owner: Owner
@@ -25,12 +26,14 @@ public struct SearchReposResponse: Sendable, Decodable, Equatable {
         public let stargazersCount: Int
 
         public init(
+            id: Int,
             name: String,
             fullName: String,
             owner: Owner,
             description: String?,
             stargazersCount: Int
         ) {
+            self.id = id
             self.name = name
             self.fullName = fullName
             self.owner = owner
@@ -39,6 +42,7 @@ public struct SearchReposResponse: Sendable, Decodable, Equatable {
         }
 
         enum CodingKeys: String, CodingKey {
+            case id
             case name
             case fullName = "full_name"
             case owner

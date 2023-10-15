@@ -1,5 +1,6 @@
 import SwiftUI
 import ComposableArchitecture
+import RepositoryDetailFeature
 
 public struct SearchRepositoriesView: View {
     let store: StoreOf<SearchRepositoriesReducer>
@@ -21,17 +22,30 @@ public struct SearchRepositoriesView: View {
     }
 
     public var body: some View {
-        NavigationStack {
+        NavigationStackStore(store.scope(state: \.path, action: { .path($0) })) {
             WithViewStore(store, observe: ViewState.init(store:)) { viewStore in
                 List {
                     ForEachStore(store.scope(
                         state: \.items,
                         action: SearchRepositoriesReducer.Action.item(id:action:)
                     )) { itemStore in
-                        RepositoryItemView(store: itemStore)
-                            .onAppear {
-                                viewStore.send(.itemAppeared(id: itemStore.withState(\.id)))
+                        WithViewStore(itemStore, observe: { $0 }) { itemViewStore in
+                            NavigationLink(
+                                state: RepositoryDetailReducer.State(
+                                    id: itemViewStore.id,
+                                    name: itemViewStore.name,
+                                    avatarUrl: itemViewStore.avatarUrl,
+                                    description: itemViewStore.description,
+                                    stars: itemViewStore.stars,
+                                    liked: itemViewStore.liked
+                                )
+                            ) {
+                                RepositoryItemView(store: itemStore)
+                                    .onAppear {
+                                        viewStore.send(.itemAppeared(id: itemStore.withState(\.id)))
+                                    }
                             }
+                        }
                     }
 
                     if viewStore.hasMorePage {
@@ -47,6 +61,8 @@ public struct SearchRepositoriesView: View {
                 }
                 .searchable(text: viewStore.$query)
             }
+        } destination: {
+            RepositoryDetailView(store: $0)
         }
     }
 }

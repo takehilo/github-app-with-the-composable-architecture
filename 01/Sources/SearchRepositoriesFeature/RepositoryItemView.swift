@@ -7,33 +7,46 @@ struct RepositoryItemView: View {
 
     struct ViewState: Equatable {
         let name: String
-        let description: String?
         let stars: Int
+        let liked: Bool
 
         init(state: RepositoryItemReducer.State) {
             self.name = state.name
-            self.description = state.description
             self.stars = state.stars
+            self.liked = state.liked
         }
     }
 
     var body: some View {
         WithViewStore(store, observe: ViewState.init(state:)) { viewStore in
-            VStack(alignment: .leading, spacing: 8) {
-                Text(viewStore.name)
-                    .font(.system(size: 24, weight: .bold))
+            HStack {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(viewStore.name)
+                        .font(.system(size: 20, weight: .bold))
+                        .lineLimit(1)
 
-                if let description = viewStore.description {
-                    Text(description)
+                    Label {
+                        Text("\(viewStore.stars)")
+                            .font(.system(size: 14))
+                    } icon: {
+                        Image(systemName: "star.fill")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundStyle(Color.yellow)
+                    }
                 }
 
-                Label {
-                    Text("\(viewStore.stars)")
-                        .font(.system(size: 14, weight: .bold))
-                } icon: {
-                    Image(systemName: "star.fill")
-                        .foregroundStyle(Color.yellow)
+                Spacer(minLength: 16)
+
+                Button {
+                    viewStore.send(.likeTapped)
+                } label: {
+                    Image(systemName: viewStore.liked ? "heart.fill" : "heart")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .foregroundStyle(Color.pink)
                 }
+                .buttonStyle(.plain)
             }
         }
     }
@@ -44,7 +57,7 @@ struct RepositoryItemView_Previews: PreviewProvider {
     static var previews: some View {
         Form {
             RepositoryItemView(
-                store: .init(initialState: RepositoryItemReducer.State(item: .mock(name: "Alice"))) {
+                store: .init(initialState: RepositoryItemReducer.State(item: .mock(id: 0, name: "Alice"))) {
                     RepositoryItemReducer()
                 }
             )

@@ -3,6 +3,7 @@ import Dependencies
 import GithubClient
 import Domain
 import Foundation
+import RepositoryDetailFeature
 
 public struct SearchRepositoriesReducer: Reducer, Sendable {
     // MARK: - State
@@ -12,6 +13,7 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
         var currentPage = 1
         var loadingState: LoadingState = .refreshing
         var hasMorePage = false
+        var path = StackState<RepositoryDetailReducer.State>()
 
         public init() {}
     }
@@ -27,9 +29,10 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
     // MARK: - Action
     public enum Action: BindableAction, Equatable, Sendable {
         case binding(BindingAction<State>)
-        case item(id: UUID, action: RepositoryItemReducer.Action)
-        case itemAppeared(id: UUID)
+        case item(id: Int, action: RepositoryItemReducer.Action)
+        case itemAppeared(id: Int)
         case searchReposResponse(TaskResult<SearchReposResponse>)
+        case path(StackAction<RepositoryDetailReducer.State, RepositoryDetailReducer.Action>)
     }
 
     // MARK: - Dependencies
@@ -50,6 +53,7 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
                 }
 
                 state.currentPage = 1
+                state.loadingState = .refreshing
 
                 return .run { [query = state.query, page = state.currentPage] send in
                     await send(.searchReposResponse(TaskResult {
@@ -84,7 +88,7 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
                 if state.hasMorePage, state.items.index(id: id) == state.items.count - 1 {
                     state.currentPage += 1
                     state.loadingState = .loadingNext
-                    
+
                     return .run { [query = state.query, page = state.currentPage] send in
                         await send(.searchReposResponse(TaskResult {
                             try await githubClient.searchRepos(.init(query: query, page: page))
@@ -97,7 +101,21 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
             case .item:
                 return .none
 
+            case let .path(.element(id: id, action: .likeTapped)):
+                guard let repositoryDetail = state.path[id: id] else { return .none }
+                state.items[id: repositoryDetail.id]?.liked = repositoryDetail.liked
+                return .none
+
+            case .path:
+                return .none
+
             }
+        }
+        .forEach(\.items, action: /Action.item(id:action:)) {
+            RepositoryItemReducer()
+        }
+        .forEach(\.path, action: /Action.path) {
+            RepositoryDetailReducer()
         }
     }
 }

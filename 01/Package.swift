@@ -9,6 +9,7 @@ let package = Package(
     products: [
         .library(name: "Domain", targets: ["Domain"]),
         .library(name: "SearchRepositoriesFeature", targets: ["SearchRepositoriesFeature"]),
+        .library(name: "RepositoryDetailFeature", targets: ["RepositoryDetailFeature"]),
         .library(name: "GithubClient", targets: ["GithubClient"]),
         .library(name: "GithubClientLive", targets: ["GithubClientLive"])
     ],
@@ -33,6 +34,19 @@ let package = Package(
             dependencies: [
                 "Domain",
                 "GithubClient",
+                "RepositoryDetailFeature",
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ],
+            swiftSettings: [
+                .unsafeFlags([
+                    "-strict-concurrency=complete"
+                ])
+            ]
+        ),
+        .target(
+            name: "RepositoryDetailFeature",
+            dependencies: [
+                "Domain",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ],
             swiftSettings: [

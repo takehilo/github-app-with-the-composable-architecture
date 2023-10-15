@@ -6,19 +6,20 @@ public extension SearchReposResponse {
         .init(
             totalCount: 10,
             items: [
-                .mock(name: "Alice"),
-                .mock(name: "Bob"),
-                .mock(name: "Carol"),
-                .mock(name: "Dave"),
-                .mock(name: "Ellen"),
+                .mock(id: 0, name: "Alice"),
+                .mock(id: 1, name: "Bob"),
+                .mock(id: 2, name: "Carol"),
+                .mock(id: 3, name: "Dave"),
+                .mock(id: 4, name: "Ellen"),
             ]
         )
     }
 }
 
 public extension SearchReposResponse.Item {
-    static func mock(name: String) -> Self {
+    static func mock(id: Int, name: String) -> Self {
         .init(
+            id: id,
             name: name,
             fullName: "\(name)/awesome-repository",
             owner: .init(
