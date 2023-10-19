@@ -4,7 +4,7 @@ import Foundation
 public extension SearchReposResponse {
     static var mock: Self {
         .init(
-            totalCount: 10,
+            totalCount: 5,
             items: [
                 .mock(id: 0, name: "Alice"),
                 .mock(id: 1, name: "Bob"),

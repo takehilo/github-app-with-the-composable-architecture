@@ -75,8 +75,6 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
                 return .none
 
             case let .searchReposResponse(.success(response)):
-                state.hasMorePage = response.totalCount > state.items.count
-
                 switch state.loadingState {
                 case .refreshing:
                     state.items = .init(response: response)
@@ -87,6 +85,7 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
                     break
                 }
 
+                state.hasMorePage = response.totalCount > state.items.count
                 state.loadingState = .none
                 return .none
 
