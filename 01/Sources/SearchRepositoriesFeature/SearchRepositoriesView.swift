@@ -7,11 +7,13 @@ public struct SearchRepositoriesView: View {
     
     struct ViewState: Equatable {
         @BindingViewState var query: String
+        @BindingViewState var showFavoritesOnly: Bool
         let loadingState: SearchRepositoriesReducer.LoadingState
         let hasMorePage: Bool
 
         init(store: BindingViewStore<SearchRepositoriesReducer.State>) {
             self._query = store.$query
+            self._showFavoritesOnly = store.$showFavoritesOnly
             self.loadingState = store.loadingState
             self.hasMorePage = store.hasMorePage
         }
@@ -25,8 +27,12 @@ public struct SearchRepositoriesView: View {
         NavigationStackStore(store.scope(state: \.path, action: { .path($0) })) {
             WithViewStore(store, observe: ViewState.init(store:)) { viewStore in
                 List {
+                    Toggle(isOn: viewStore.$showFavoritesOnly) {
+                        Text("Favorites Only")
+                    }
+
                     ForEachStore(store.scope(
-                        state: \.items,
+                        state: \.filteredItems,
                         action: SearchRepositoriesReducer.Action.item(id:action:)
                     )) { itemStore in
                         WithViewStore(itemStore, observe: { $0 }) { itemViewStore in

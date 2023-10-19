@@ -10,10 +10,17 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
     public struct State: Equatable {
         var items = IdentifiedArrayOf<RepositoryItemReducer.State>()
         @BindingState var query = ""
+        @BindingState var showFavoritesOnly = false
         var currentPage = 1
         var loadingState: LoadingState = .refreshing
         var hasMorePage = false
         var path = StackState<RepositoryDetailReducer.State>()
+
+        var filteredItems: IdentifiedArrayOf<RepositoryItemReducer.State> {
+            items.filter {
+                !showFavoritesOnly || $0.liked
+            }
+        }
 
         public init() {}
     }
