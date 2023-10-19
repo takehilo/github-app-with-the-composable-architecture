@@ -56,6 +56,8 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
 
             case .binding(\.$query):
                 guard !state.query.isEmpty else {
+                    state.hasMorePage = false
+                    state.items.removeAll()
                     return .cancel(id: CancelId.searchRepos)
                 }
 
