@@ -64,21 +64,17 @@ public struct RepositoryDetailView: View {
     }
 }
 
-#if DEBUG
-struct RepositoryDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        RepositoryDetailView(
-            store: .init(initialState: RepositoryDetailReducer.State(
-                id: 100,
-                name: "takehilo",
-                avatarUrl: .init(string: "https://github.com/takehilo.png")!,
-                description: "",
-                stars: 12345,
-                liked: true
-            )) {
-                RepositoryDetailReducer()
-            }
-        )
-    }
+#Preview {
+    RepositoryDetailView(
+        store: .init(initialState: RepositoryDetailReducer.State(
+            id: 100,
+            name: "takehilo",
+            avatarUrl: .init(string: "https://github.com/takehilo.png")!,
+            description: "",
+            stars: 12345,
+            liked: true
+        )) {
+            RepositoryDetailReducer()
+        }
+    )
 }
-#endif

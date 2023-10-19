@@ -52,16 +52,12 @@ struct RepositoryItemView: View {
     }
 }
 
-#if DEBUG
-struct RepositoryItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        Form {
-            RepositoryItemView(
-                store: .init(initialState: RepositoryItemReducer.State(item: .mock(id: 0, name: "Alice"))) {
-                    RepositoryItemReducer()
-                }
-            )
-        }
+#Preview {
+    Form {
+        RepositoryItemView(
+            store: .init(initialState: RepositoryItemReducer.State(item: .mock(id: 0, name: "Alice"))) {
+                RepositoryItemReducer()
+            }
+        )
     }
 }
-#endif

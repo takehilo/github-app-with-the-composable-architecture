@@ -73,18 +73,14 @@ public struct SearchRepositoriesView: View {
     }
 }
 
-#if DEBUG
-struct SearchRepositoriesView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchRepositoriesView(
-            store: .init(initialState: SearchRepositoriesReducer.State()) {
-                SearchRepositoriesReducer()
-                    .dependency(
-                        \.githubClient,
-                         .init(searchRepos: { _ in .mock })
-                    )
-            }
-        )
-    }
+#Preview {
+    SearchRepositoriesView(
+        store: .init(initialState: SearchRepositoriesReducer.State()) {
+            SearchRepositoriesReducer()
+                .dependency(
+                    \.githubClient,
+                     .init(searchRepos: { _ in .mock })
+                )
+        }
+    )
 }
-#endif
