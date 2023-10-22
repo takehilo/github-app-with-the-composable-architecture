@@ -38,11 +38,7 @@ public struct SearchRepositoriesView: View {
                         WithViewStore(itemStore, observe: { $0 }) { itemViewStore in
                             NavigationLink(
                                 state: RepositoryDetailReducer.State(
-                                    id: itemViewStore.id,
-                                    name: itemViewStore.name,
-                                    avatarUrl: itemViewStore.avatarUrl,
-                                    description: itemViewStore.description,
-                                    stars: itemViewStore.stars,
+                                    repository: itemViewStore.repository,
                                     liked: itemViewStore.liked
                                 )
                             ) {

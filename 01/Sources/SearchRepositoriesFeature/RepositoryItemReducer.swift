@@ -6,11 +6,8 @@ import Foundation
 public struct RepositoryItemReducer: Reducer, Sendable {
     // MARK: - State
     public struct State: Equatable, Identifiable {
-        public let id: Int
-        let name: String
-        let avatarUrl: URL
-        let description: String?
-        let stars: Int
+        public var id: Int { repository.id }
+        let repository: Repository
         var liked = false
     }
 
@@ -35,11 +32,7 @@ public struct RepositoryItemReducer: Reducer, Sendable {
 
 extension RepositoryItemReducer.State {
     init(item: SearchReposResponse.Item) {
-        self.id = item.id
-        self.name = item.fullName
-        self.avatarUrl = item.owner.avatarUrl
-        self.description = item.description
-        self.stars = item.stargazersCount
+        self.repository = .init(from: item)
     }
 }
 

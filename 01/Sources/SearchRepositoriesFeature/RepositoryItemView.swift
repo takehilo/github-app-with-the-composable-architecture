@@ -6,13 +6,11 @@ struct RepositoryItemView: View {
     let store: StoreOf<RepositoryItemReducer>
 
     struct ViewState: Equatable {
-        let name: String
-        let stars: Int
+        let repository: Repository
         let liked: Bool
 
         init(state: RepositoryItemReducer.State) {
-            self.name = state.name
-            self.stars = state.stars
+            self.repository = state.repository
             self.liked = state.liked
         }
     }
@@ -21,12 +19,12 @@ struct RepositoryItemView: View {
         WithViewStore(store, observe: ViewState.init(state:)) { viewStore in
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(viewStore.name)
+                    Text(viewStore.repository.name)
                         .font(.system(size: 20, weight: .bold))
                         .lineLimit(1)
 
                     Label {
-                        Text("\(viewStore.stars)")
+                        Text("\(viewStore.repository.stars)")
                             .font(.system(size: 14))
                     } icon: {
                         Image(systemName: "star.fill")

@@ -1,21 +1,16 @@
 import SwiftUI
 import ComposableArchitecture
+import Domain
 
 public struct RepositoryDetailView: View {
     let store: StoreOf<RepositoryDetailReducer>
 
     struct ViewState: Equatable {
-        let name: String
-        let description: String?
-        let avatarUrl: URL
-        let stars: Int
+        let repository: Repository
         let liked: Bool
 
         init(state: RepositoryDetailReducer.State) {
-            self.name = state.name
-            self.avatarUrl = state.avatarUrl
-            self.description = state.description
-            self.stars = state.stars
+            self.repository = state.repository
             self.liked = state.liked
         }
     }
@@ -29,18 +24,18 @@ public struct RepositoryDetailView: View {
             Form {
                 HStack {
                     VStack(alignment: .leading, spacing: 8) {
-                        AsyncImage(url: viewStore.avatarUrl) { image in image.image?.resizable() }
+                        AsyncImage(url: viewStore.repository.avatarUrl) { image in image.image?.resizable() }
                             .frame(width: 40, height: 40)
 
-                        Text(viewStore.name)
+                        Text(viewStore.repository.name)
                             .font(.system(size: 24, weight: .bold))
 
-                        if let description = viewStore.description {
+                        if let description = viewStore.repository.description {
                             Text(description)
                         }
 
                         Label {
-                            Text("\(viewStore.stars)")
+                            Text("\(viewStore.repository.stars)")
                                 .font(.system(size: 14, weight: .bold))
                         } icon: {
                             Image(systemName: "star.fill")
@@ -67,11 +62,7 @@ public struct RepositoryDetailView: View {
 #Preview {
     RepositoryDetailView(
         store: .init(initialState: RepositoryDetailReducer.State(
-            id: 100,
-            name: "takehilo",
-            avatarUrl: .init(string: "https://github.com/takehilo.png")!,
-            description: "",
-            stars: 12345,
+            repository: .init(from: .mock(id: 100, name: "takehilo")),
             liked: true
         )) {
             RepositoryDetailReducer()

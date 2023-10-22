@@ -1,30 +1,20 @@
 import ComposableArchitecture
 import Dependencies
 import Foundation
+import Domain
 
 public struct RepositoryDetailReducer: Reducer, Sendable {
     // MARK: - State
     public struct State: Equatable {
-        public let id: Int
-        public let name: String
-        public let avatarUrl: URL
-        public let description: String?
-        public let stars: Int
+        public var id: Int { repository.id }
+        public let repository: Repository
         public var liked: Bool
 
         public init(
-            id: Int,
-            name: String,
-            avatarUrl: URL,
-            description: String?,
-            stars: Int,
+            repository: Repository,
             liked: Bool
         ) {
-            self.id = id
-            self.name = name
-            self.avatarUrl = avatarUrl
-            self.description = description
-            self.stars = stars
+            self.repository = repository
             self.liked = liked
         }
     }
