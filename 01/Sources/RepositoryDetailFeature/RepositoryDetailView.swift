@@ -5,22 +5,12 @@ import Domain
 public struct RepositoryDetailView: View {
     let store: StoreOf<RepositoryDetailReducer>
 
-    struct ViewState: Equatable {
-        let repository: Repository
-        @BindingViewState var liked: Bool
-
-        init(store: BindingViewStore<RepositoryDetailReducer.State>) {
-            self.repository = store.repository
-            self._liked = store.$liked
-        }
-    }
-
     public init(store: StoreOf<RepositoryDetailReducer>) {
         self.store = store
     }
 
     public var body: some View {
-        WithViewStore(store, observe: ViewState.init(store:)) { viewStore in
+        WithViewStore(store, observe: { $0 }) { viewStore in
             Form {
                 HStack {
                     VStack(alignment: .leading, spacing: 8) {
