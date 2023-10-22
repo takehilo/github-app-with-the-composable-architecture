@@ -7,16 +7,16 @@ struct RepositoryItemView: View {
 
     struct ViewState: Equatable {
         let repository: Repository
-        let liked: Bool
+        @BindingViewState var liked: Bool
 
-        init(state: RepositoryItemReducer.State) {
-            self.repository = state.repository
-            self.liked = state.liked
+        init(store: BindingViewStore<RepositoryItemReducer.State>) {
+            self.repository = store.repository
+            self._liked = store.$liked
         }
     }
 
     var body: some View {
-        WithViewStore(store, observe: ViewState.init(state:)) { viewStore in
+        WithViewStore(store, observe: ViewState.init(store:)) { viewStore in
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
                     Text(viewStore.repository.name)
@@ -37,7 +37,7 @@ struct RepositoryItemView: View {
                 Spacer(minLength: 16)
 
                 Button {
-                    viewStore.send(.likeTapped)
+                    viewStore.$liked.wrappedValue.toggle()
                 } label: {
                     Image(systemName: viewStore.liked ? "heart.fill" : "heart")
                         .resizable()

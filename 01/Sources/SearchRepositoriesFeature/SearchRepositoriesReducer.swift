@@ -109,7 +109,7 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
             case .item:
                 return .none
 
-            case let .path(.element(id: id, action: .likeTapped)):
+            case let .path(.element(id: id, action: .binding(\.$liked))):
                 guard let repositoryDetail = state.path[id: id] else { return .none }
                 state.items[id: repositoryDetail.id]?.liked = repositoryDetail.liked
                 return .none

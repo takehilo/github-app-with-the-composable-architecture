@@ -8,7 +8,7 @@ public struct RepositoryDetailReducer: Reducer, Sendable {
     public struct State: Equatable {
         public var id: Int { repository.id }
         public let repository: Repository
-        public var liked: Bool
+        @BindingState public var liked = false
 
         public init(
             repository: Repository,
@@ -22,20 +22,14 @@ public struct RepositoryDetailReducer: Reducer, Sendable {
     public init() {}
 
     // MARK: - Action
-    public enum Action: Equatable, Sendable {
-        case likeTapped
+    public enum Action: BindableAction, Equatable, Sendable {
+        case binding(BindingAction<State>)
     }
 
     // MARK: - Dependencies
 
     // MARK: - Reducer
-    public func reduce(into state: inout State, action: Action) -> Effect<Action> {
-        switch action {
-
-        case .likeTapped:
-            state.liked.toggle()
-            return .none
-            
-        }
+    public var body: some ReducerOf<Self> {
+        BindingReducer()
     }
 }
