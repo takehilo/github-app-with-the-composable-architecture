@@ -43,6 +43,13 @@ let package = Package(
                 ])
             ]
         ),
+        .testTarget(
+            name: "SearchRepositoriesFeatureTests",
+            dependencies: [
+                "SearchRepositoriesFeature",
+                "RepositoryDetailFeature",
+            ]
+        ),
         .target(
             name: "RepositoryDetailFeature",
             dependencies: [

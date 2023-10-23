@@ -75,7 +75,7 @@ public struct SearchRepositoriesView: View {
             SearchRepositoriesReducer()
                 .dependency(
                     \.githubClient,
-                     .init(searchRepos: { _ in .mock })
+                     .init(searchRepos: { _ in .mock() })
                 )
         }
     )
