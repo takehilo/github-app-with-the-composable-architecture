@@ -12,6 +12,7 @@ extension GithubRequest {
     var baseHeaders: [String: String] {
         var params: [String: String] = [:]
         params["Accept"] = "application/vnd.github+json"
+        params["Authorization"] = "Bearer <TOKEN>"
         return params
     }
 }
