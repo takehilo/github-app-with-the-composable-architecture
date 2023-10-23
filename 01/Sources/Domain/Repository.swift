@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Repository: Equatable {
+public struct Repository: Equatable, Sendable {
     public let id: Int
     public let name: String
     public let avatarUrl: URL

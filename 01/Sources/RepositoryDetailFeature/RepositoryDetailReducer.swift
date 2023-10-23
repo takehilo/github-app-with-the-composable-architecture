@@ -5,7 +5,7 @@ import Domain
 
 public struct RepositoryDetailReducer: Reducer, Sendable {
     // MARK: - State
-    public struct State: Equatable {
+    public struct State: Equatable, Sendable {
         public var id: Int { repository.id }
         public let repository: Repository
         @BindingState public var liked = false

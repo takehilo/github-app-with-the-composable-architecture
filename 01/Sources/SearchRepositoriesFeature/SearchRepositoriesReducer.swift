@@ -7,7 +7,7 @@ import RepositoryDetailFeature
 
 public struct SearchRepositoriesReducer: Reducer, Sendable {
     // MARK: - State
-    public struct State: Equatable {
+    public struct State: Equatable, Sendable {
         var items = IdentifiedArrayOf<RepositoryItemReducer.State>()
         @BindingState var query = ""
         @BindingState var showFavoritesOnly = false

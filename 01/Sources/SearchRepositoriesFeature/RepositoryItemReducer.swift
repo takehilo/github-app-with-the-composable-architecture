@@ -5,7 +5,7 @@ import Foundation
 
 public struct RepositoryItemReducer: Reducer, Sendable {
     // MARK: - State
-    public struct State: Equatable, Identifiable {
+    public struct State: Equatable, Identifiable, Sendable {
         public var id: Int { repository.id }
         let repository: Repository
         @BindingState var liked = false
