@@ -10,10 +10,12 @@
 		62753F712AA8E671008CBC3D /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62753F702AA8E671008CBC3D /* App.swift */; };
 		62753F752AA8E672008CBC3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62753F742AA8E672008CBC3D /* Assets.xcassets */; };
 		62753F792AA8E672008CBC3D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62753F782AA8E672008CBC3D /* Preview Assets.xcassets */; };
-		627E45842AAC393600BA0EF9 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 627E45832AAC393600BA0EF9 /* Domain */; };
-		627E45862AAC393600BA0EF9 /* GithubClient in Frameworks */ = {isa = PBXBuildFile; productRef = 627E45852AAC393600BA0EF9 /* GithubClient */; };
-		627E45882AAC393600BA0EF9 /* GithubClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 627E45872AAC393600BA0EF9 /* GithubClientLive */; };
-		62D468902AAC3D3800165AA7 /* SearchRepositoriesFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 62D4688F2AAC3D3800165AA7 /* SearchRepositoriesFeature */; };
+		62B24E252AEAD18A00D95E3D /* ApiClient in Frameworks */ = {isa = PBXBuildFile; productRef = 62B24E242AEAD18A00D95E3D /* ApiClient */; };
+		62B24E272AEAD18A00D95E3D /* GithubClient in Frameworks */ = {isa = PBXBuildFile; productRef = 62B24E262AEAD18A00D95E3D /* GithubClient */; };
+		62B24E292AEAD18A00D95E3D /* GithubClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 62B24E282AEAD18A00D95E3D /* GithubClientLive */; };
+		62B24E2B2AEAD18A00D95E3D /* RepositoryDetailFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 62B24E2A2AEAD18A00D95E3D /* RepositoryDetailFeature */; };
+		62B24E2D2AEAD18A00D95E3D /* SearchRepositoriesFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 62B24E2C2AEAD18A00D95E3D /* SearchRepositoriesFeature */; };
+		62B24E2F2AEAD18A00D95E3D /* SharedModel in Frameworks */ = {isa = PBXBuildFile; productRef = 62B24E2E2AEAD18A00D95E3D /* SharedModel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,10 +32,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				627E45842AAC393600BA0EF9 /* Domain in Frameworks */,
-				627E45862AAC393600BA0EF9 /* GithubClient in Frameworks */,
-				627E45882AAC393600BA0EF9 /* GithubClientLive in Frameworks */,
-				62D468902AAC3D3800165AA7 /* SearchRepositoriesFeature in Frameworks */,
+				62B24E292AEAD18A00D95E3D /* GithubClientLive in Frameworks */,
+				62B24E2F2AEAD18A00D95E3D /* SharedModel in Frameworks */,
+				62B24E272AEAD18A00D95E3D /* GithubClient in Frameworks */,
+				62B24E2B2AEAD18A00D95E3D /* RepositoryDetailFeature in Frameworks */,
+				62B24E252AEAD18A00D95E3D /* ApiClient in Frameworks */,
+				62B24E2D2AEAD18A00D95E3D /* SearchRepositoriesFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,10 +105,12 @@
 			);
 			name = GithubApp;
 			packageProductDependencies = (
-				627E45832AAC393600BA0EF9 /* Domain */,
-				627E45852AAC393600BA0EF9 /* GithubClient */,
-				627E45872AAC393600BA0EF9 /* GithubClientLive */,
-				62D4688F2AAC3D3800165AA7 /* SearchRepositoriesFeature */,
+				62B24E242AEAD18A00D95E3D /* ApiClient */,
+				62B24E262AEAD18A00D95E3D /* GithubClient */,
+				62B24E282AEAD18A00D95E3D /* GithubClientLive */,
+				62B24E2A2AEAD18A00D95E3D /* RepositoryDetailFeature */,
+				62B24E2C2AEAD18A00D95E3D /* SearchRepositoriesFeature */,
+				62B24E2E2AEAD18A00D95E3D /* SharedModel */,
 			);
 			productName = GithubApp;
 			productReference = 62753F6D2AA8E671008CBC3D /* GithubApp.app */;
@@ -378,21 +384,29 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		627E45832AAC393600BA0EF9 /* Domain */ = {
+		62B24E242AEAD18A00D95E3D /* ApiClient */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Domain;
+			productName = ApiClient;
 		};
-		627E45852AAC393600BA0EF9 /* GithubClient */ = {
+		62B24E262AEAD18A00D95E3D /* GithubClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GithubClient;
 		};
-		627E45872AAC393600BA0EF9 /* GithubClientLive */ = {
+		62B24E282AEAD18A00D95E3D /* GithubClientLive */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GithubClientLive;
 		};
-		62D4688F2AAC3D3800165AA7 /* SearchRepositoriesFeature */ = {
+		62B24E2A2AEAD18A00D95E3D /* RepositoryDetailFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RepositoryDetailFeature;
+		};
+		62B24E2C2AEAD18A00D95E3D /* SearchRepositoriesFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SearchRepositoriesFeature;
+		};
+		62B24E2E2AEAD18A00D95E3D /* SharedModel */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SharedModel;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

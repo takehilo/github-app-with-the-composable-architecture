@@ -1,5 +1,5 @@
 import APIKit
-import Domain
+import SharedModel
 
 struct SearchReposRequest: GithubRequest {
     typealias Response = SearchReposResponse

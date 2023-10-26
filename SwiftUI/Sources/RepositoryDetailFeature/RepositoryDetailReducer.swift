@@ -1,7 +1,7 @@
 import ComposableArchitecture
 import Dependencies
 import Foundation
-import Domain
+import SharedModel
 
 public struct RepositoryDetailReducer: Reducer, Sendable {
     // MARK: - State

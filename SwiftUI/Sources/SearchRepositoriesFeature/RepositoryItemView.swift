@@ -1,6 +1,6 @@
 import SwiftUI
 import ComposableArchitecture
-import Domain
+import SharedModel
 
 struct RepositoryItemView: View {
     let store: StoreOf<RepositoryItemReducer>

@@ -1,15 +1,15 @@
 import Foundation
+import SharedModel
 @preconcurrency import APIKit
-import Domain
 
-struct ApiClient: Sendable {
+public final class ApiClient: Sendable {
     private let session: Session
 
-    init(session: Session) {
+    public init(session: Session) {
         self.session = session
     }
 
-    func send<T: BaseRequest>(request: T) async throws -> T.Response {
+    public func send<T: BaseRequest>(request: T) async throws -> T.Response {
         do {
             return try await session.response(for: request)
         } catch let originalError as SessionTaskError {
@@ -26,20 +26,20 @@ struct ApiClient: Sendable {
     public static let testValue = ApiClient(session: Session(adapter: NoopSessionAdapter()))
 }
 
-final class NoopSessionTask: SessionTask {
-    func resume() {}
-    func cancel() {}
+public final class NoopSessionTask: SessionTask {
+    public func resume() {}
+    public func cancel() {}
 }
 
-struct NoopSessionAdapter: SessionAdapter {
-    func createTask(
+public struct NoopSessionAdapter: SessionAdapter {
+    public func createTask(
         with URLRequest: URLRequest,
         handler: @escaping (Data?, URLResponse?, Error?) -> Void
     ) -> SessionTask {
         return NoopSessionTask()
     }
 
-    func getTasks(with handler: @escaping ([SessionTask]) -> Void) {
+    public func getTasks(with handler: @escaping ([SessionTask]) -> Void) {
         handler([])
     }
 }

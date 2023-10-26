@@ -1,5 +1,5 @@
 import Dependencies
-import Domain
+import SharedModel
 
 public struct GithubClient: Sendable {
     public var searchRepos: @Sendable (SearchReposParams) async throws -> SearchReposResponse

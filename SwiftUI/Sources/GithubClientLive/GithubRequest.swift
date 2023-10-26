@@ -1,5 +1,6 @@
 import Foundation
 import APIKit
+import ApiClient
 
 protocol GithubRequest: BaseRequest {
 }

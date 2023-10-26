@@ -1,6 +1,6 @@
 import XCTest
 import ComposableArchitecture
-import Domain
+import SharedModel
 import RepositoryDetailFeature
 
 @testable import SearchRepositoriesFeature

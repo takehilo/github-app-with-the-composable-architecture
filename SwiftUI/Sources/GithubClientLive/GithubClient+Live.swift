@@ -1,8 +1,7 @@
 import GithubClient
 import Dependencies
-import APIKit
-import Foundation
-import Domain
+import SharedModel
+import ApiClient
 
 extension GithubClient: DependencyKey {
     public static let liveValue: GithubClient = .live()

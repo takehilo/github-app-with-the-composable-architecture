@@ -1,7 +1,7 @@
 import ComposableArchitecture
 import Dependencies
 import GithubClient
-import Domain
+import SharedModel
 import Foundation
 import RepositoryDetailFeature
 

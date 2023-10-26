@@ -1,6 +1,6 @@
 import ComposableArchitecture
 import Dependencies
-import Domain
+import SharedModel
 import Foundation
 
 public struct RepositoryItemReducer: Reducer, Sendable {

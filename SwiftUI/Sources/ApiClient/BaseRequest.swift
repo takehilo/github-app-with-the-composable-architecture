@@ -1,12 +1,12 @@
 import Foundation
 import APIKit
-import Domain
+import SharedModel
 
-protocol BaseRequest: Request where Response: Decodable {
+public protocol BaseRequest: Request where Response: Decodable {
     var decoder: JSONDecoder { get }
 }
 
-extension BaseRequest {
+public extension BaseRequest {
     func intercept(object: Any, urlResponse: HTTPURLResponse) throws -> Any {
         guard 200..<300 ~= urlResponse.statusCode else {
             throw ApiError.unacceptableStatusCode(urlResponse.statusCode)
@@ -18,9 +18,4 @@ extension BaseRequest {
         let data = try JSONSerialization.data(withJSONObject: object, options: [])
         return try decoder.decode(Response.self, from: data)
     }
-}
-
-public enum ApiClientError: Error, Equatable {
-    case unacceptableStatusCode(Int)
-    case unknown(NSError)
 }

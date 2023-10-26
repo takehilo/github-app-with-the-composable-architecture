@@ -7,9 +7,10 @@ let package = Package(
     name: "GithubApp",
     platforms: [.iOS(.v16)],
     products: [
-        .library(name: "Domain", targets: ["Domain"]),
+        .library(name: "SharedModel", targets: ["SharedModel"]),
         .library(name: "SearchRepositoriesFeature", targets: ["SearchRepositoriesFeature"]),
         .library(name: "RepositoryDetailFeature", targets: ["RepositoryDetailFeature"]),
+        .library(name: "ApiClient", targets: ["ApiClient"]),
         .library(name: "GithubClient", targets: ["GithubClient"]),
         .library(name: "GithubClientLive", targets: ["GithubClientLive"])
     ],
@@ -20,7 +21,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "Domain",
+            name: "SharedModel",
             dependencies: [
             ],
             swiftSettings: [
@@ -32,7 +33,7 @@ let package = Package(
         .target(
             name: "SearchRepositoriesFeature",
             dependencies: [
-                "Domain",
+                "SharedModel",
                 "GithubClient",
                 "RepositoryDetailFeature",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
@@ -53,8 +54,20 @@ let package = Package(
         .target(
             name: "RepositoryDetailFeature",
             dependencies: [
-                "Domain",
+                "SharedModel",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ],
+            swiftSettings: [
+                .unsafeFlags([
+                    "-strict-concurrency=complete"
+                ])
+            ]
+        ),
+        .target(
+            name: "ApiClient",
+            dependencies: [
+                "SharedModel",
+                .product(name: "APIKit", package: "APIKit")
             ],
             swiftSettings: [
                 .unsafeFlags([
@@ -65,7 +78,7 @@ let package = Package(
         .target(
             name: "GithubClient",
             dependencies: [
-                "Domain",
+                "SharedModel",
                 .product(name: "Dependencies", package: "swift-dependencies")
             ],
             swiftSettings: [
@@ -77,7 +90,8 @@ let package = Package(
         .target(
             name: "GithubClientLive",
             dependencies: [
-                "Domain",
+                "SharedModel",
+                "ApiClient",
                 "GithubClient",
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "APIKit", package: "APIKit")
