@@ -15,7 +15,7 @@ let package = Package(
         .library(name: "GithubClientLive", targets: ["GithubClientLive"])
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.2.0"),
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.3.0"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
         .package(url: "https://github.com/ishkawa/APIKit", from: "5.4.0")
     ],
