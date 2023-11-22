@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		620B2AFE2B0E633F00090FAF /* GithubClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 620B2AFD2B0E633F00090FAF /* GithubClientLive */; };
 		62753F712AA8E671008CBC3D /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62753F702AA8E671008CBC3D /* App.swift */; };
 		62753F752AA8E672008CBC3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62753F742AA8E672008CBC3D /* Assets.xcassets */; };
 		62753F792AA8E672008CBC3D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62753F782AA8E672008CBC3D /* Preview Assets.xcassets */; };
@@ -27,6 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				620B2AFE2B0E633F00090FAF /* GithubClientLive in Frameworks */,
 				62B24E2D2AEAD18A00D95E3D /* SearchRepositoriesFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,6 +98,7 @@
 			name = GithubApp;
 			packageProductDependencies = (
 				62B24E2C2AEAD18A00D95E3D /* SearchRepositoriesFeature */,
+				620B2AFD2B0E633F00090FAF /* GithubClientLive */,
 			);
 			productName = GithubApp;
 			productReference = 62753F6D2AA8E671008CBC3D /* GithubApp.app */;
@@ -369,6 +372,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		620B2AFD2B0E633F00090FAF /* GithubClientLive */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GithubClientLive;
+		};
 		62B24E2C2AEAD18A00D95E3D /* SearchRepositoriesFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SearchRepositoriesFeature;
