@@ -79,7 +79,8 @@ let package = Package(
             name: "GithubClient",
             dependencies: [
                 "SharedModel",
-                .product(name: "Dependencies", package: "swift-dependencies")
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "DependenciesMacros", package: "swift-dependencies")
             ],
             swiftSettings: [
                 .unsafeFlags([

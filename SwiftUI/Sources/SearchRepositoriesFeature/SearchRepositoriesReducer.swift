@@ -66,7 +66,7 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
 
                 return .run { [query = state.query, page = state.currentPage] send in
                     await send(.searchReposResponse(TaskResult {
-                        try await githubClient.searchRepos(.init(query: query, page: page))
+                        try await githubClient.searchRepos(query: query, page: page)
                     }))
                 }
                 .debounce(id: CancelId.searchRepos, for: 0.3, scheduler: mainQueue)
@@ -99,7 +99,7 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
 
                     return .run { [query = state.query, page = state.currentPage] send in
                         await send(.searchReposResponse(TaskResult {
-                            try await githubClient.searchRepos(.init(query: query, page: page))
+                            try await githubClient.searchRepos(query: query, page: page)
                         }))
                     }
                 } else {

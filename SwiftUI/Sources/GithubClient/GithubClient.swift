@@ -1,35 +1,15 @@
 import Dependencies
 import SharedModel
+import DependenciesMacros
 
+@DependencyClient
 public struct GithubClient: Sendable {
-    public var searchRepos: @Sendable (SearchReposParams) async throws -> SearchReposResponse
-
-    public init(searchRepos: @Sendable @escaping (SearchReposParams) async throws -> SearchReposResponse) {
-        self.searchRepos = searchRepos
-    }
-
-    public struct SearchReposParams: Equatable {
-        public let query: String
-        public let page: Int
-
-        public init(
-            query: String,
-            page: Int
-        ) {
-            self.query = query
-            self.page = page
-        }
-    }
+    public var searchRepos: @Sendable (_ query: String, _ page: Int) async throws -> SearchReposResponse
 }
 
 extension GithubClient: TestDependencyKey {
-    public static let testValue: GithubClient = .init(
-        searchRepos: unimplemented("\(Self.self).searchRepos")
-    )
-
-    public static let previewValue: GithubClient = .init(
-        searchRepos: unimplemented("\(Self.self).searchRepos")
-    )
+    public static let testValue = Self()
+    public static let previewValue = Self()
 }
 
 public extension DependencyValues {
