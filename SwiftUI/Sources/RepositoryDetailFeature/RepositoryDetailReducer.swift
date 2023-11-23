@@ -3,6 +3,7 @@ import Dependencies
 import Foundation
 import SharedModel
 
+@Reducer
 public struct RepositoryDetailReducer: Reducer, Sendable {
     // MARK: - State
     public struct State: Equatable, Sendable {
@@ -22,7 +23,7 @@ public struct RepositoryDetailReducer: Reducer, Sendable {
     public init() {}
 
     // MARK: - Action
-    public enum Action: BindableAction, Equatable, Sendable {
+    public enum Action: BindableAction, Sendable {
         case binding(BindingAction<State>)
     }
 

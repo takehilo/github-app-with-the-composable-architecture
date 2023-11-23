@@ -3,16 +3,21 @@ import Dependencies
 import SharedModel
 import Foundation
 
+@Reducer
 public struct RepositoryItemReducer: Reducer, Sendable {
     // MARK: - State
     public struct State: Equatable, Identifiable, Sendable {
         public var id: Int { repository.id }
         let repository: Repository
         @BindingState var liked = false
+
+        static func make(from item: SearchReposResponse.Item) -> Self {
+            .init(repository: .init(from: item))
+        }
     }
 
     // MARK: - Action
-    public enum Action: BindableAction, Equatable, Sendable {
+    public enum Action: BindableAction, Sendable {
         case binding(BindingAction<State>)
     }
 
@@ -24,15 +29,9 @@ public struct RepositoryItemReducer: Reducer, Sendable {
     }
 }
 
-extension RepositoryItemReducer.State {
-    init(item: SearchReposResponse.Item) {
-        self.repository = .init(from: item)
-    }
-}
-
 extension IdentifiedArrayOf
 where Element == RepositoryItemReducer.State, ID == Int {
     init(response: SearchReposResponse) {
-        self = IdentifiedArrayOf(uniqueElements: response.items.map { .init(item: $0) })
+        self = IdentifiedArrayOf(uniqueElements: response.items.map { .make(from: $0) })
     }
 }

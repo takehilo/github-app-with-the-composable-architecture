@@ -33,7 +33,7 @@ public struct SearchRepositoriesView: View {
 
                     ForEachStore(store.scope(
                         state: \.filteredItems,
-                        action: SearchRepositoriesReducer.Action.item(id:action:)
+                        action: SearchRepositoriesReducer.Action.items
                     )) { itemStore in
                         WithViewStore(itemStore, observe: { $0 }) { itemViewStore in
                             NavigationLink(

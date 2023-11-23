@@ -5,6 +5,7 @@ import SharedModel
 import Foundation
 import RepositoryDetailFeature
 
+@Reducer
 public struct SearchRepositoriesReducer: Reducer, Sendable {
     // MARK: - State
     public struct State: Equatable, Sendable {
@@ -34,11 +35,11 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
     private enum CancelId { case searchRepos }
 
     // MARK: - Action
-    public enum Action: BindableAction, Equatable, Sendable {
+    public enum Action: BindableAction, Sendable {
         case binding(BindingAction<State>)
-        case item(id: Int, action: RepositoryItemReducer.Action)
+        case items(IdentifiedActionOf<RepositoryItemReducer>)
         case itemAppeared(id: Int)
-        case searchReposResponse(TaskResult<SearchReposResponse>)
+        case searchReposResponse(Result<SearchReposResponse, Error>)
         case path(StackAction<RepositoryDetailReducer.State, RepositoryDetailReducer.Action>)
     }
 
@@ -65,7 +66,7 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
                 state.loadingState = .refreshing
 
                 return .run { [query = state.query, page = state.currentPage] send in
-                    await send(.searchReposResponse(TaskResult {
+                    await send(.searchReposResponse(Result {
                         try await githubClient.searchRepos(query: query, page: page)
                     }))
                 }
@@ -98,7 +99,7 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
                     state.loadingState = .loadingNext
 
                     return .run { [query = state.query, page = state.currentPage] send in
-                        await send(.searchReposResponse(TaskResult {
+                        await send(.searchReposResponse(Result {
                             try await githubClient.searchRepos(query: query, page: page)
                         }))
                     }
@@ -106,7 +107,7 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
                     return .none
                 }
 
-            case .item:
+            case .items:
                 return .none
 
             case let .path(.element(id: id, action: .binding(\.$liked))):
@@ -119,10 +120,10 @@ public struct SearchRepositoriesReducer: Reducer, Sendable {
 
             }
         }
-        .forEach(\.items, action: /Action.item(id:action:)) {
+        .forEach(\.items, action: \.items) {
             RepositoryItemReducer()
         }
-        .forEach(\.path, action: /Action.path) {
+        .forEach(\.path, action: \.path) {
             RepositoryDetailReducer()
         }
     }

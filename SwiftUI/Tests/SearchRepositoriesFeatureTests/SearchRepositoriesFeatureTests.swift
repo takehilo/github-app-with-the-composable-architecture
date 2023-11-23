@@ -12,7 +12,7 @@ class SearchRepositoriesFeatureTests: XCTestCase {
         let store = TestStore(initialState: SearchRepositoriesReducer.State()) {
             SearchRepositoriesReducer()
         } withDependencies: {
-            $0.githubClient.searchRepos = { _ in .mock(totalCount: 10) }
+            $0.githubClient.searchRepos = { @Sendable _, _ in .mock(totalCount: 10) }
             $0.mainQueue = mainQueue.eraseToAnyScheduler()
         }
 
@@ -32,7 +32,7 @@ class SearchRepositoriesFeatureTests: XCTestCase {
 
         await mainQueue.advance(by: .seconds(0.3))
 
-        await store.receive(.searchReposResponse(.success(.mock(totalCount: 10)))) {
+        await store.receive(\.searchReposResponse.success) {
             $0.items = .init(response: .mock(totalCount: 10))
             $0.hasMorePage = true
             $0.loadingState = .none
@@ -53,7 +53,7 @@ class SearchRepositoriesFeatureTests: XCTestCase {
         let store = TestStore(initialState: initialState) {
             SearchRepositoriesReducer()
         } withDependencies: {
-            $0.githubClient.searchRepos = { _ in .mock2(totalCount: 10) }
+            $0.githubClient.searchRepos = { @Sendable _, _ in .mock2(totalCount: 10) }
         }
 
         await store.send(.itemAppeared(id: 4)) {
@@ -61,7 +61,7 @@ class SearchRepositoriesFeatureTests: XCTestCase {
             $0.loadingState = .loadingNext
         }
 
-        await store.receive(.searchReposResponse(.success(.mock2(totalCount: 10)))) {
+        await store.receive(\.searchReposResponse.success) {
             $0.items = .init(response: .mockAll())
             $0.hasMorePage = false
             $0.loadingState = .none

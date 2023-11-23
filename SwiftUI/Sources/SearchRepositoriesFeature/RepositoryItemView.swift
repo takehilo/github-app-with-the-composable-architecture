@@ -43,7 +43,7 @@ struct RepositoryItemView: View {
 #Preview {
     Form {
         RepositoryItemView(
-            store: .init(initialState: RepositoryItemReducer.State(item: .mock(id: 0, name: "Alice"))) {
+            store: .init(initialState: RepositoryItemReducer.State.make(from: .mock(id: 0, name: "Alice"))) {
                 RepositoryItemReducer()
             }
         )
