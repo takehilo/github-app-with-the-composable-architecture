@@ -24,7 +24,7 @@ public struct SearchRepositoriesView: View {
     }
 
     public var body: some View {
-        NavigationStackStore(store.scope(state: \.path, action: { .path($0) })) {
+        NavigationStackStore(store.scope(state: \.path, action: \.path)) {
             WithViewStore(store, observe: ViewState.init(store:)) { viewStore in
                 List {
                     Toggle(isOn: viewStore.$showFavoritesOnly) {
@@ -33,7 +33,7 @@ public struct SearchRepositoriesView: View {
 
                     ForEachStore(store.scope(
                         state: \.filteredItems,
-                        action: SearchRepositoriesReducer.Action.items
+                        action: \.items
                     )) { itemStore in
                         WithViewStore(itemStore, observe: { $0 }) { itemViewStore in
                             NavigationLink(
