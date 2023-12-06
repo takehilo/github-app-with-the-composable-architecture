@@ -8,13 +8,11 @@ public struct SearchRepositoriesView: View {
     struct ViewState: Equatable {
         @BindingViewState var query: String
         @BindingViewState var showFavoritesOnly: Bool
-        let loadingState: SearchRepositoriesReducer.LoadingState
         let hasMorePage: Bool
 
         init(store: BindingViewStore<SearchRepositoriesReducer.State>) {
             self._query = store.$query
             self._showFavoritesOnly = store.$showFavoritesOnly
-            self.loadingState = store.loadingState
             self.hasMorePage = store.hasMorePage
         }
     }
@@ -51,14 +49,8 @@ public struct SearchRepositoriesView: View {
                     }
 
                     if viewStore.hasMorePage {
-                        switch viewStore.loadingState {
-                        case .refreshing, .loadingNext:
-                            ProgressView()
-                                .id(UUID())
-                                .frame(maxWidth: .infinity)
-                        case .none:
-                            EmptyView()
-                        }
+                        ProgressView()
+                            .frame(maxWidth: .infinity)
                     }
                 }
                 .searchable(text: viewStore.$query)
