@@ -17,3 +17,4 @@ This practical sample application has the following features:
 
 # Related Articles
 - [TCAでGithubリポジトリ検索アプリを作ってみよう①](https://qiita.com/takehilo/items/814319d4666fef402a41)
+- [TCAでGithubリポジトリ検索アプリを作ってみよう②](https://qiita.com/takehilo/items/c56fbfc92b462bc61b30)
